@@ -1,4 +1,5 @@
 using Api.Data.Context;
+using Api.Data.Repositories;
 using Api.Data.UnitOfWork;
 using Api.Services;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Add services to the container.
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<CustomerPredictionService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IShipperRepository, ShipperRepository>();
+builder.Services.AddScoped<IShipperService, ShipperService>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddControllers();
 // Agregar servicios de Swagger
 builder.Services.AddEndpointsApiExplorer();

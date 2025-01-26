@@ -1,4 +1,5 @@
 ﻿using Api.Data.Context;
+using Api.DTOs;
 using Api.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ namespace Api.Data.Repositories
         {
             _context = context;
         }
-        public async Task<IEnumerable<Shipper>> GetAllShippersAsync()
+        public async Task<IEnumerable<ShipperDto>> GetAllShippersAsync()
         {
-            return await _context.Shippers.ToListAsync();
+            return await _context.Set<ShipperDto>()
+                .FromSqlRaw("EXEC GetShippers")
+                .ToListAsync();
         }
 
     }

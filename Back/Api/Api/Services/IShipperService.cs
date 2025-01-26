@@ -1,8 +1,8 @@
 ﻿using Api.DTOs;
 
-namespace Api.Data.Repositories
+namespace Api.Services
 {
-    public interface IShipperRepository
+    public interface IShipperService
     {
         Task<IEnumerable<ShipperDto>> GetAllShippersAsync();
     }

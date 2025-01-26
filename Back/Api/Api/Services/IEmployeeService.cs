@@ -1,9 +1,8 @@
 ﻿using Api.DTOs;
-using Api.Models;
 
-namespace Api.Data.Repositories
+namespace Api.Services
 {
-    public interface IEmployeeRepository
+    public interface IEmployeeService
     {
         Task<IEnumerable<EmployeeDto>> GetAllEmployeesAsync();
     }

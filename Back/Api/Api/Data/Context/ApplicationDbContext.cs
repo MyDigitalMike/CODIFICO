@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Api.Models;
+using Api.DTOs;
 namespace Api.Data.Context
 {
     public class ApplicationDbContext : DbContext
@@ -17,6 +18,11 @@ namespace Api.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CustomerPrediction>().HasNoKey();
+            modelBuilder.Entity<ClientOrderDto>().HasNoKey(); 
+            modelBuilder.Entity<EmployeeDto>().HasNoKey();
+            modelBuilder.Entity<ShipperDto>().HasNoKey();
+            modelBuilder.Entity<ProductDto>().HasNoKey();
+            modelBuilder.Entity<NewOrderIdDto>().HasNoKey();
         }
     }
 }

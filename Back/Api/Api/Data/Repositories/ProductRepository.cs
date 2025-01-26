@@ -1,4 +1,5 @@
 ﻿using Api.Data.Context;
+using Api.DTOs;
 using Api.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,9 +14,11 @@ namespace Api.Data.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Product>> GetAllProductsAsync()
+        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Set<ProductDto>()
+             .FromSqlRaw("EXEC GetProducts")
+             .ToListAsync();
         }
     }
 }
