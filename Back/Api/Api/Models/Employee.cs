@@ -1,7 +1,10 @@
-﻿namespace Api.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Api.Models
 {
     public class Employee
     {
+        [Key]
         public int Empid { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
