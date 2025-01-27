@@ -29,7 +29,7 @@
 **Backend**
 
  1. Clonar el repositorio.
- 2. Crear la base de datos en SQL Server y ejecutar los siguientes scripts:
+ 2. Crear la base de datos en SQL Server y ejecutar los siguientes scripts se encuentran en el back en  la carpeta llamada `StroredProcedures`:
   - **Procedimientos almacenados:**
 	 - `GetNextOrderPrediction`: Predicción de próximas órdenes.
 	 - `GetClientOrders`: Listar órdenes por cliente.
