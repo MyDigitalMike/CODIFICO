@@ -17,6 +17,7 @@ namespace Api.Controllers
         /// List orders by customer ID.
         /// </summary>
         [HttpGet("{customerId}/orders")]
+        [ProducesResponseType(typeof(IEnumerable<OrderDto>), 200)]
         public async Task<IActionResult> GetOrdersByCustomer(int customerId)
         {
             var orders = await _orderService.GetOrdersByCustomerAsync(customerId);
@@ -26,6 +27,7 @@ namespace Api.Controllers
         /// Add new Order.
         /// </summary>
         [HttpPost]
+        [ProducesResponseType(typeof(IEnumerable<OrderDto>), 200)]
         public async Task<IActionResult> AddOrderWithProducts([FromBody] OrderDto order)
         {
             var newOrderId = await _orderService.AddNewOrderWithProductsAsync(order);

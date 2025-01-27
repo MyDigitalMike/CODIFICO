@@ -29,7 +29,9 @@ export class CustomersComponent implements OnInit {
       error: (err) => console.error('Error al cargar clientes', err),
     });
   }
-  onSearch(searchTerm: string): void {
-    this.getCustomers();
+  onSearch(): void {
+    this.customerService.searchCustomers(this.searchTerm).subscribe((data) => {
+      this.customers = data;
+    });
   }
 }

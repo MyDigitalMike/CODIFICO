@@ -1,4 +1,5 @@
-﻿using Api.Services;
+﻿using Api.DTOs;
+using Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -13,6 +14,7 @@ namespace Api.Controllers
             _productService = productService;
         }
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<ProductDto>), 200)]
         public async Task<IActionResult> GetProducts()
         {
             var products = await _productService.GetAllProductsAsync();

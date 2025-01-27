@@ -8,23 +8,24 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+import { ShipperDto } from '../../models/shipper-dto';
 
-export interface ApiProductGet$Params {
+export interface ApiShipperGet$Plain$Params {
 }
 
-export function apiProductGet(http: HttpClient, rootUrl: string, params?: ApiProductGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, apiProductGet.PATH, 'get');
+export function apiShipperGet$Plain(http: HttpClient, rootUrl: string, params?: ApiShipperGet$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ShipperDto>>> {
+  const rb = new RequestBuilder(rootUrl, apiShipperGet$Plain.PATH, 'get');
   if (params) {
   }
 
   return http.request(
-    rb.build({ responseType: 'text', accept: '*/*', context })
+    rb.build({ responseType: 'text', accept: 'text/plain', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      return r as StrictHttpResponse<Array<ShipperDto>>;
     })
   );
 }
 
-apiProductGet.PATH = '/api/Product';
+apiShipperGet$Plain.PATH = '/api/Shipper';

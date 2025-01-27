@@ -1,4 +1,5 @@
-﻿using Api.Services;
+﻿using Api.DTOs;
+using Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -15,6 +16,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<ShipperDto>), 200)]
         public async Task<IActionResult> GetShippers()
         {
             var shippers = await _shipperService.GetAllShippersAsync();

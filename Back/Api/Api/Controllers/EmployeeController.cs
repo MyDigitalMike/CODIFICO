@@ -1,4 +1,5 @@
-﻿using Api.Services;
+﻿using Api.DTOs;
+using Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -18,6 +19,7 @@ namespace Api.Controllers
         /// Get all employees.
         /// </summary>
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<EmployeeDto>), 200)]
         public async Task<IActionResult> GetAllEmployees()
         {
             var employees = await _service.GetAllEmployeesAsync();

@@ -11,8 +11,11 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { apiEmployeeGet } from '../fn/employee/api-employee-get';
-import { ApiEmployeeGet$Params } from '../fn/employee/api-employee-get';
+import { apiEmployeeGet$Json } from '../fn/employee/api-employee-get-json';
+import { ApiEmployeeGet$Json$Params } from '../fn/employee/api-employee-get-json';
+import { apiEmployeeGet$Plain } from '../fn/employee/api-employee-get-plain';
+import { ApiEmployeeGet$Plain$Params } from '../fn/employee/api-employee-get-plain';
+import { EmployeeDto } from '../models/employee-dto';
 
 @Injectable({ providedIn: 'root' })
 export class EmployeeService extends BaseService {
@@ -25,23 +28,45 @@ export class EmployeeService extends BaseService {
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiEmployeeGet()` instead.
+   * To access only the response body, use `apiEmployeeGet$Plain()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiEmployeeGet$Response(params?: ApiEmployeeGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return apiEmployeeGet(this.http, this.rootUrl, params, context);
+  apiEmployeeGet$Plain$Response(params?: ApiEmployeeGet$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<EmployeeDto>>> {
+    return apiEmployeeGet$Plain(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiEmployeeGet$Response()` instead.
+   * To access the full response (for headers, for example), `apiEmployeeGet$Plain$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiEmployeeGet(params?: ApiEmployeeGet$Params, context?: HttpContext): Observable<void> {
-    return this.apiEmployeeGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+  apiEmployeeGet$Plain(params?: ApiEmployeeGet$Plain$Params, context?: HttpContext): Observable<Array<EmployeeDto>> {
+    return this.apiEmployeeGet$Plain$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<EmployeeDto>>): Array<EmployeeDto> => r.body)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiEmployeeGet$Json()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiEmployeeGet$Json$Response(params?: ApiEmployeeGet$Json$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<EmployeeDto>>> {
+    return apiEmployeeGet$Json(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiEmployeeGet$Json$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiEmployeeGet$Json(params?: ApiEmployeeGet$Json$Params, context?: HttpContext): Observable<Array<EmployeeDto>> {
+    return this.apiEmployeeGet$Json$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<EmployeeDto>>): Array<EmployeeDto> => r.body)
     );
   }
 

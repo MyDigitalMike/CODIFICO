@@ -11,10 +11,15 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { apiOrderCustomerIdOrdersGet } from '../fn/order/api-order-customer-id-orders-get';
-import { ApiOrderCustomerIdOrdersGet$Params } from '../fn/order/api-order-customer-id-orders-get';
-import { apiOrderPost } from '../fn/order/api-order-post';
-import { ApiOrderPost$Params } from '../fn/order/api-order-post';
+import { apiOrderCustomerIdOrdersGet$Json } from '../fn/order/api-order-customer-id-orders-get-json';
+import { ApiOrderCustomerIdOrdersGet$Json$Params } from '../fn/order/api-order-customer-id-orders-get-json';
+import { apiOrderCustomerIdOrdersGet$Plain } from '../fn/order/api-order-customer-id-orders-get-plain';
+import { ApiOrderCustomerIdOrdersGet$Plain$Params } from '../fn/order/api-order-customer-id-orders-get-plain';
+import { apiOrderPost$Json } from '../fn/order/api-order-post-json';
+import { ApiOrderPost$Json$Params } from '../fn/order/api-order-post-json';
+import { apiOrderPost$Plain } from '../fn/order/api-order-post-plain';
+import { ApiOrderPost$Plain$Params } from '../fn/order/api-order-post-plain';
+import { OrderDto } from '../models/order-dto';
 
 @Injectable({ providedIn: 'root' })
 export class OrderService extends BaseService {
@@ -27,23 +32,45 @@ export class OrderService extends BaseService {
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiOrderCustomerIdOrdersGet()` instead.
+   * To access only the response body, use `apiOrderCustomerIdOrdersGet$Plain()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiOrderCustomerIdOrdersGet$Response(params: ApiOrderCustomerIdOrdersGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return apiOrderCustomerIdOrdersGet(this.http, this.rootUrl, params, context);
+  apiOrderCustomerIdOrdersGet$Plain$Response(params: ApiOrderCustomerIdOrdersGet$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderDto>>> {
+    return apiOrderCustomerIdOrdersGet$Plain(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiOrderCustomerIdOrdersGet$Response()` instead.
+   * To access the full response (for headers, for example), `apiOrderCustomerIdOrdersGet$Plain$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiOrderCustomerIdOrdersGet(params: ApiOrderCustomerIdOrdersGet$Params, context?: HttpContext): Observable<void> {
-    return this.apiOrderCustomerIdOrdersGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+  apiOrderCustomerIdOrdersGet$Plain(params: ApiOrderCustomerIdOrdersGet$Plain$Params, context?: HttpContext): Observable<Array<OrderDto>> {
+    return this.apiOrderCustomerIdOrdersGet$Plain$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<OrderDto>>): Array<OrderDto> => r.body)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiOrderCustomerIdOrdersGet$Json()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiOrderCustomerIdOrdersGet$Json$Response(params: ApiOrderCustomerIdOrdersGet$Json$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderDto>>> {
+    return apiOrderCustomerIdOrdersGet$Json(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiOrderCustomerIdOrdersGet$Json$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiOrderCustomerIdOrdersGet$Json(params: ApiOrderCustomerIdOrdersGet$Json$Params, context?: HttpContext): Observable<Array<OrderDto>> {
+    return this.apiOrderCustomerIdOrdersGet$Json$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<OrderDto>>): Array<OrderDto> => r.body)
     );
   }
 
@@ -52,23 +79,45 @@ export class OrderService extends BaseService {
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiOrderPost()` instead.
+   * To access only the response body, use `apiOrderPost$Plain()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiOrderPost$Response(params?: ApiOrderPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return apiOrderPost(this.http, this.rootUrl, params, context);
+  apiOrderPost$Plain$Response(params?: ApiOrderPost$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderDto>>> {
+    return apiOrderPost$Plain(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiOrderPost$Response()` instead.
+   * To access the full response (for headers, for example), `apiOrderPost$Plain$Response()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiOrderPost(params?: ApiOrderPost$Params, context?: HttpContext): Observable<void> {
-    return this.apiOrderPost$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+  apiOrderPost$Plain(params?: ApiOrderPost$Plain$Params, context?: HttpContext): Observable<Array<OrderDto>> {
+    return this.apiOrderPost$Plain$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<OrderDto>>): Array<OrderDto> => r.body)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiOrderPost$Json()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiOrderPost$Json$Response(params?: ApiOrderPost$Json$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderDto>>> {
+    return apiOrderPost$Json(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiOrderPost$Json$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiOrderPost$Json(params?: ApiOrderPost$Json$Params, context?: HttpContext): Observable<Array<OrderDto>> {
+    return this.apiOrderPost$Json$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<OrderDto>>): Array<OrderDto> => r.body)
     );
   }
 

@@ -11,8 +11,11 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { apiShipperGet } from '../fn/shipper/api-shipper-get';
-import { ApiShipperGet$Params } from '../fn/shipper/api-shipper-get';
+import { apiShipperGet$Json } from '../fn/shipper/api-shipper-get-json';
+import { ApiShipperGet$Json$Params } from '../fn/shipper/api-shipper-get-json';
+import { apiShipperGet$Plain } from '../fn/shipper/api-shipper-get-plain';
+import { ApiShipperGet$Plain$Params } from '../fn/shipper/api-shipper-get-plain';
+import { ShipperDto } from '../models/shipper-dto';
 
 @Injectable({ providedIn: 'root' })
 export class ShipperService extends BaseService {
@@ -25,23 +28,45 @@ export class ShipperService extends BaseService {
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiShipperGet()` instead.
+   * To access only the response body, use `apiShipperGet$Plain()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiShipperGet$Response(params?: ApiShipperGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return apiShipperGet(this.http, this.rootUrl, params, context);
+  apiShipperGet$Plain$Response(params?: ApiShipperGet$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ShipperDto>>> {
+    return apiShipperGet$Plain(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiShipperGet$Response()` instead.
+   * To access the full response (for headers, for example), `apiShipperGet$Plain$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiShipperGet(params?: ApiShipperGet$Params, context?: HttpContext): Observable<void> {
-    return this.apiShipperGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+  apiShipperGet$Plain(params?: ApiShipperGet$Plain$Params, context?: HttpContext): Observable<Array<ShipperDto>> {
+    return this.apiShipperGet$Plain$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<ShipperDto>>): Array<ShipperDto> => r.body)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiShipperGet$Json()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiShipperGet$Json$Response(params?: ApiShipperGet$Json$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ShipperDto>>> {
+    return apiShipperGet$Json(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiShipperGet$Json$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiShipperGet$Json(params?: ApiShipperGet$Json$Params, context?: HttpContext): Observable<Array<ShipperDto>> {
+    return this.apiShipperGet$Json$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<ShipperDto>>): Array<ShipperDto> => r.body)
     );
   }
 
