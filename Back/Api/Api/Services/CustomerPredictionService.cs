@@ -10,9 +10,9 @@ namespace Api.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task<IEnumerable<CustomerPredictionDto>> GetCustomerPredictionsAsync()
+        public async Task<IEnumerable<CustomerPredictionDto>> GetCustomerPredictionsAsync(string? customerName = null)
         {
-            return await _unitOfWork.CustomerPredictions.GetCustomerPredictionsAsync();
+            return await _unitOfWork.CustomerPredictions.GetCustomerPredictionsAsync(customerName);
         }
     }
 }

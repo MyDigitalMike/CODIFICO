@@ -1,5 +1,6 @@
 ﻿using Api.Data.Context;
 using Api.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Data.Repositories

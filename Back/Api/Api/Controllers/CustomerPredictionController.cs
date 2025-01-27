@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Api.Services;
+using Api.DTOs;
 namespace Api.Controllers
 {
     [ApiController]
@@ -12,9 +13,10 @@ namespace Api.Controllers
             _service = service;
         }
         [HttpGet]
-        public async Task<IActionResult> GetCustomerPredictions()
+        [ProducesResponseType(typeof(IEnumerable<CustomerPredictionDto>), 200)]
+        public async Task<IActionResult> GetCustomerPredictions([FromQuery] string? customerName)
         {
-            var predictions = await _service.GetCustomerPredictionsAsync();
+            var predictions = await _service.GetCustomerPredictionsAsync(customerName);
             return Ok(predictions);
         }
     }
